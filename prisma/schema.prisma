@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  fullName  String?
+  avatar    String?
+  password  String?
+  provider  Provider?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  roles     Role[]
+  Token     Token[]
+  isBlocked Boolean   @default(false) @map("is_blocked")
+
+  @@map("users")
+}
+
+model Token {
+  token     String   @unique
+  exp       DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userAgent String   @map("user_agent")
+  userId    String
+
+  @@map("tokens")
+}
+
+model Type {
+  id          Int        @id @default(autoincrement())
+  name        String     @unique
+  description String?
+  img         String?
+  products    Product[]
+
+  @@map("types")
+}
+model Brand {
+  id          Int        @id @default(autoincrement())
+  name        String     @unique
+  description String?
+  img         String?
+  products    Product[]
+
+  @@map("brands")
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  price       Int      @default(0)
+  logo        String?
+  img         String[] @default([])
+  options     Option[]
+  brandId     Int
+  brand       Brand @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  typeId      Int
+  type        Type @relation(fields: [typeId], references: [id], onDelete: Cascade)
+
+  @@map("products")
+}
+
+model Option {
+  id                      Int     @id @default(autoincrement())
+  title                   String?
+  description             String?
+  productId               String
+  product                 Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("options")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum Provider {
+  GOOGLE
+  YANDEX
+}
