@@ -183,6 +183,22 @@ export class ProductService {
         return product;
     }
 
+    async getManySearch(text: string) {
+        if (!text || text.length > 50) return;
+        const searchResult = await this.prismaService.product.findMany({
+            where: {
+                OR: [
+                    { name: { contains: text, mode: 'insensitive' } },
+                    { brand: { name: { contains: text, mode: 'insensitive' } } },
+                    { type: { name: { contains: text, mode: 'insensitive' } } },
+                ],
+            },
+            include: { type: true, brand: true },
+        });
+
+        return { data: searchResult, count: searchResult.length };
+    }
+
     async getMany(ids: string[]) {
         const products = await this.prismaService.product.findMany({ where: { id: { in: [...ids] } } });
         return products;

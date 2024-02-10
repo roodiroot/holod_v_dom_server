@@ -87,6 +87,13 @@ export class ProductController {
     }
 
     @Public()
+    @Get('search')
+    async getListSearch(@Query() params: any) {
+        if (params.text) return await this.productService.getManySearch(params.text);
+        return null;
+    }
+
+    @Public()
     @Get(':id')
     async getOne(@Param('id') id: string) {
         console.log(new Date(), 'get-: ' + id);
