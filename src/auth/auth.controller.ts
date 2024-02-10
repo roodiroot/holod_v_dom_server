@@ -114,7 +114,7 @@ export class AuthController {
             httpOnly: true,
             sameSite: 'none',
             expires: new Date(tokens.refreshToken.exp),
-            secure: false,
+            secure: true,
             path: '/',
         });
         res.status(HttpStatus.CREATED).json({ accessToken: tokens.accessToken });
