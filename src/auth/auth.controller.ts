@@ -85,7 +85,7 @@ export class AuthController {
         }
         res.cookie(REFRESH_TOKEN, '', {
             httpOnly: true,
-            sameSite: 'lax',
+            sameSite: 'none',
             expires: new Date(),
             secure: true,
         });
@@ -113,7 +113,7 @@ export class AuthController {
         }
         res.cookie(REFRESH_TOKEN, tokens.refreshToken.token, {
             httpOnly: true,
-            sameSite: 'lax',
+            sameSite: 'none',
             expires: new Date(tokens.refreshToken.exp),
             secure: true,
             path: '/',
