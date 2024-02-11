@@ -84,7 +84,7 @@ export class AuthController {
             return;
         }
         res.cookie(REFRESH_TOKEN, '', {
-            httpOnly: false,
+            httpOnly: true,
             sameSite: 'none',
             expires: new Date(),
             secure: true,
@@ -95,7 +95,7 @@ export class AuthController {
 
     @Get('refresh-tokens')
     async refreshTokens(@Cookie(REFRESH_TOKEN) refreshToken: string, @Res() res: Response, @UserAgent() agent: string) {
-        // console.log('refresh-tokens');
+        console.log(refreshToken);
         if (!refreshToken) {
             throw new UnauthorizedException();
         }
@@ -112,7 +112,7 @@ export class AuthController {
             throw new UnauthorizedException();
         }
         res.cookie(REFRESH_TOKEN, tokens.refreshToken.token, {
-            httpOnly: false,
+            httpOnly: true,
             sameSite: 'none',
             expires: new Date(tokens.refreshToken.exp),
             secure: true,

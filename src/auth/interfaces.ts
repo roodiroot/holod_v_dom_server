@@ -6,10 +6,9 @@ export interface Tokens {
 }
 
 export interface JwtPayload {
-    id: string,
-    email: string,
-    avatar: string,
-    fullName: string,
-    roles: string[]
-
+    id: string;
+    email: string;
+    avatar: string;
+    fullName: string;
+    roles: string[];
 }
