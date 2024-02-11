@@ -85,6 +85,7 @@ export class AuthController {
         }
         res.cookie(REFRESH_TOKEN, '', {
             httpOnly: true,
+            sameSite: 'none',
             expires: new Date(),
             secure: true,
         });
