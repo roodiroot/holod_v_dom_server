@@ -84,7 +84,7 @@ export class AuthController {
             return;
         }
         res.cookie(REFRESH_TOKEN, '', {
-            httpOnly: true,
+            // httpOnly: true,
             sameSite: 'none',
             expires: new Date(),
             secure: true,
@@ -112,7 +112,7 @@ export class AuthController {
             throw new UnauthorizedException();
         }
         res.cookie(REFRESH_TOKEN, tokens.refreshToken.token, {
-            httpOnly: true,
+            // httpOnly: true,
             sameSite: 'none',
             expires: new Date(tokens.refreshToken.exp),
             secure: true,
