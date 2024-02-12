@@ -116,6 +116,7 @@ export class AuthController {
             secure: true,
             path: '/',
         });
+        res.set({ 'access-control-expose-headers:': 'Set-Cookie' });
         res.status(HttpStatus.CREATED).json({ accessToken: tokens.accessToken });
     }
 
