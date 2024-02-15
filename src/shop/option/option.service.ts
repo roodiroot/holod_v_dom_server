@@ -63,4 +63,18 @@ export class OptionService {
         await this.prismaService.option.deleteMany({ where: { id: { in: [...ids] } } });
         return ids;
     }
+
+    async getOptionsForFilter(title: string) {
+        const list = await this.prismaService.option.findMany({
+            where: { title: { contains: title, mode: 'insensitive' } },
+            select: { description: true },
+        });
+        const unikList = new Set();
+
+        for (const item of list) {
+            unikList.add(item.description);
+        }
+
+        return [...unikList];
+    }
 }
