@@ -11,7 +11,8 @@ async function bootstrap() {
         origin: [
             'http://localhost:3000',
             'http://localhost:3001',
-            'https://holod-vdom.ru, https://admin.holod-vdom.ru',
+            'https://holod-vdom.ru',
+            'https://admin.holod-vdom.ru',
         ],
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         preflightContinue: false,
