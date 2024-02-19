@@ -8,8 +8,11 @@ async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
     const PORT = process.env.PORT || 5001;
     app.enableCors({
-        origin: true,
-        // ['http://localhost:3000', 'http://localhost:3001', 'https://holod-vdom.store'],
+        origin: [
+            'http://localhost:3000',
+            'http://localhost:3001',
+            'https://holod-vdom.ru, https://admin.holod-vdom.ru',
+        ],
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         preflightContinue: false,
         optionsSuccessStatus: 204,
